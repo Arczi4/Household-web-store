@@ -7,7 +7,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 router = routers.DefaultRouter()
-router.register(r'item', ecommerce_views.ItemViewSet, basename='item')
+router.register(r'product', ecommerce_views.ProductViewSet, basename='product')
 router.register(r'order', ecommerce_views.OrderViewSet, basename='order')
 
 urlpatterns = router.urls

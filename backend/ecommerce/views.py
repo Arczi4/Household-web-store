@@ -1,7 +1,7 @@
 from json import JSONDecodeError
 from django.http import JsonResponse
-from .serializers import ItemSerializer, OrderSerializer
-from .models import Item , Order
+from .serializers import ProductSerializer, OrderSerializer
+from .models import Product , Order, Category
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
@@ -9,18 +9,30 @@ from rest_framework.response import Response
 from rest_framework.mixins import ListModelMixin,UpdateModelMixin,RetrieveModelMixin
 
 
-
-class ItemViewSet(
+class CategoryViewSet(
         ListModelMixin,
         RetrieveModelMixin, 
         viewsets.GenericViewSet
         ):
     """
-    A simple ViewSet for listing or retrieving items.
+    A simple ViewSet for listing or retrieving categories.
     """
     permission_classes = (IsAuthenticated,)
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+    queryset = Category.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ProductViewSet(
+        ListModelMixin,
+        RetrieveModelMixin, 
+        viewsets.GenericViewSet
+        ):
+    """
+    A simple ViewSet for listing or retrieving products.
+    """
+    permission_classes = (IsAuthenticated,)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 
@@ -50,8 +62,8 @@ class OrderViewSet(
             data = JSONParser().parse(request)
             serializer = OrderSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
-                item = Item.objects.get(pk = data["item"])
-                order = item.place_order(request.user, data["quantity"])
+                product = Product.objects.get(pk = data["product"])
+                order = product.place_order(request.user, data["quantity"])
                 return Response(OrderSerializer(order).data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
