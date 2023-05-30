@@ -11,6 +11,12 @@ class NotEnoughStockException(APIException):
     default_code = "invalid"
 
 
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = "name"
+
+
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
@@ -22,12 +28,33 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), many=False)
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(), many=False
+    )
+
+    class Meta:
+        model = Order
+        fields = (
+            "user",
+            "adress",
+            "postal_code",
+            "city",
+            "created_date",
+            "paid",
+        )
+
+
+class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(), many=False
+    )
 
     class Meta:
         model = Order
         fields = (
             "product",
+            "order",
+            "price",
             "quantity",
         )
 
@@ -40,9 +67,3 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         if not product.check_stock(quantity):
             raise NotEnoughStockException
         return res
-
-
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Category
-        fields = "name"

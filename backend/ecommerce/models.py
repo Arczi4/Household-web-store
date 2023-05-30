@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from utils.model_abstracts import Model
@@ -22,7 +23,7 @@ class Category(
         verbose_name_plural = 'Categories'
         ordering = ["id"]
     
-    name = models.TextField(blank=False, null=False)
+    name = models.TextField(blank=False, null=False, unique=True)
 
 
 class Product(
@@ -99,8 +100,30 @@ class Order(
         ordering = ["id"]
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    adress = models.TextField(blank=False, null=True)
+    postal_code = models.TextField(blank=False, null=True)
+    city  = models.TextField(blank=False, null=True)
+    created_date = models.DateTimeField(default=datetime.datetime.now())
+    paid = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):
         return f'{self.user.username} - {self.product.title}'
+
+
+class OrderItem(
+    TimeStampedModel,
+    ActivatorModel ,
+    Model):
+    """
+    ecommerce.OrderItem
+    Stores a single ordered product. Each row conatin ordered product order_id price and qunatity
+    """
+    class Meta:
+        verbose_name = 'OrderItem'
+        verbose_name_plural = 'OrderItems'
+        ordering = ["id"]
+    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    # price = models.DecimalField(default=0, decimal_places=2, max_digits=100000, null=True, blank=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
