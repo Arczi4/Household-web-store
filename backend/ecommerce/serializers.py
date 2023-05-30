@@ -28,10 +28,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(
-        queryset=Product.objects.all(), many=False
-    )
-
     class Meta:
         model = Order
         fields = (

@@ -24,6 +24,9 @@ class Category(
         ordering = ["id"]
     
     name = models.TextField(blank=False, null=False, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class Product(
@@ -107,7 +110,7 @@ class Order(
     paid = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):
-        return f'{self.user.username} - {self.product.title}'
+        return f'{self.id}'
 
 
 class OrderItem(
@@ -125,5 +128,5 @@ class OrderItem(
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
-    # price = models.DecimalField(default=0, decimal_places=2, max_digits=100000, null=True, blank=True)
+    price = models.DecimalField(default=0, decimal_places=2, max_digits=100000, null=True, blank=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
