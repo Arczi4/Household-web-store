@@ -52,7 +52,7 @@ class OrderViewSet(
             data = JSONParser().parse(request)
             serializer = OrderSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
-                product = Product.objects.get(pk=data["product"])
+                product = Product.objects.get(pk=data["product_name"])
                 order = product.place_order(request.user, data["quantity"])
                 return Response(OrderSerializer(order).data)
             else:
