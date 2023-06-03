@@ -127,8 +127,8 @@ class EcommerceTestCase(APITestCase):
         for i in self.Products:
             stock = i.stock
             data = {
-                "Product": str(i.id),
-                "order": Order.objects.first(),
+                "product": str(i.id),
+                "order": str(Order.objects.first().id),
                 "price": 10,
                 "quantity": str(stock + 1),
             }
@@ -137,14 +137,12 @@ class EcommerceTestCase(APITestCase):
 
     def test_create_order_with_less_than_stock(self):
         """
-        test OrdersViewSet create method when order.quantity < Product.stock
+        test OrderItemViewSet create method when order.quantity < Product.stock
         """
-
-        # Tutaj trzeba debug zrobić XD
         for i in self.Products:
             data = {
-                "Product": str(i.id),
-                "order": Order.objects.first(),
+                "product": str(i.id),
+                "order": str(Order.objects.first().id),
                 "price": 10,
                 "quantity": 1,
             }
@@ -159,11 +157,10 @@ class EcommerceTestCase(APITestCase):
             stock = i.stock
             data = {
                 "product": str(i.id),
-                "order": str(Order.objects.first()),
+                "order": str(Order.objects.first().id),
                 "price": i.price,
                 "quantity": stock,
             }
-            # data_json = json.dumps(data, indent=4)
             response = self.client.post(f"/order-item/", data)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 

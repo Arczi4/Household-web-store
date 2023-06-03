@@ -73,15 +73,21 @@ class Product(
             return False
         return True
 
-    def place_order(self, user, qty):
+    def place_order(self, order, price, qty):
         #used to place an order
+        
+        # Get order object
+        order = Order.objects.get(pk=order)
+        
         if self.check_stock(qty):
-            order = Order.objects.create(
-                product = self, 
-                quantity = qty, 
-                user= user)
+            order_item = OrderItem.objects.create(
+                product = self,
+                order = order,
+                price = price,
+                quantity = qty
+            )
             self.manage_stock(qty)
-            return order
+            return order_item
         else:
             return None
 
@@ -110,7 +116,7 @@ class Order(
     paid = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):
-        return f'{self.id}'
+        return self
 
 
 class OrderItem(

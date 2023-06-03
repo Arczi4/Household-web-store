@@ -47,20 +47,6 @@ class OrderViewSet(
         user = self.request.user
         return Order.objects.filter(user=user)
 
-    def create(self, request):
-        try:
-            data = JSONParser().parse(request)
-            serializer = OrderSerializer(data=data)
-            if serializer.is_valid(raise_exception=True):
-                product = Product.objects.get(pk=data["product_name"])
-                order = product.place_order(request.user, data["quantity"])
-                return Response(OrderSerializer(order).data)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except JSONDecodeError:
-            return JsonResponse(
-                {"result": "error", "message": "Json decoding error"}, status=400
-            )
 
 
 class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
@@ -78,8 +64,8 @@ class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewS
             serializer = OrderItemSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 product = Product.objects.get(pk=data["product"])
-                order = product.place_order(request.user, data["quantity"])
-                return Response(OrderItemSerializer(order).data)
+                order_item = product.place_order(data["order"], data["price"], data["quantity"])
+                return Response(OrderItemSerializer(order_item).data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except JSONDecodeError:
