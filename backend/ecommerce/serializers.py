@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from .models import Category, Product, Order
+from .models import Category, OrderItem, Product, Order
 from rest_framework_json_api import serializers
 from rest_framework import status
 from rest_framework.exceptions import APIException
@@ -44,9 +44,13 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
     product = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(), many=False
     )
+    
+    order = serializers.PrimaryKeyRelatedField(
+        queryset=Order.objects.all(), many=False
+    )
 
     class Meta:
-        model = Order
+        model = OrderItem
         fields = (
             "product",
             "order",

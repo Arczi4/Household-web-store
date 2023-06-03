@@ -71,3 +71,18 @@ class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewS
     permission_classes = (IsAuthenticated,)
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+    
+    def create(self, request):
+        try:
+            data = JSONParser().parse(request)
+            serializer = OrderItemSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                product = Product.objects.get(pk=data["product_name"])
+                order = product.place_order(request.user, data["quantity"])
+                return Response(OrderItemSerializer(order).data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except JSONDecodeError:
+            return JsonResponse(
+                {"result": "error", "message": "Json decoding error"}, status=400
+            )

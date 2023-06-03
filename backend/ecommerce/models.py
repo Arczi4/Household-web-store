@@ -45,8 +45,8 @@ class Product(
         verbose_name_plural = 'Products'
         ordering = ["id"]
 
-    # def __str__(self):
-    #     return self
+    def __str__(self):
+        return self
     
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     product_name = models.TextField(blank=False, null=True)
@@ -109,8 +109,8 @@ class Order(
     created_date = models.DateTimeField(default=datetime.datetime.now())
     paid = models.BooleanField(blank=False, null=False, default=False)
 
-    # def __str__(self):
-    #     return f'{self.id}'
+    def __str__(self):
+        return f'{self.id}'
 
 
 class OrderItem(
