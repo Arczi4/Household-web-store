@@ -77,7 +77,7 @@ class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewS
             data = JSONParser().parse(request)
             serializer = OrderItemSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
-                product = Product.objects.get(pk=data["product_name"])
+                product = Product.objects.get(pk=data["product"])
                 order = product.place_order(request.user, data["quantity"])
                 return Response(OrderItemSerializer(order).data)
             else:
