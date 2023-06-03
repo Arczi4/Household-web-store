@@ -1,4 +1,3 @@
-import datetime
 from django.contrib.auth.models import User
 from ecommerce.models import OrderItem, Product, Order
 from rest_framework.authtoken.models import Token
@@ -140,7 +139,7 @@ class EcommerceTestCase(APITestCase):
         """
         test OrdersViewSet create method when order.quantity < Product.stock
         """
-        
+
         # Tutaj trzeba debug zrobić XD
         for i in self.Products:
             data = {
@@ -157,12 +156,14 @@ class EcommerceTestCase(APITestCase):
         test OrdersViewSet create method when order.quantity == Product.stock
         """
         for i in self.Products:
+            print(Order.objects.first())
+            input()
             stock = i.stock
             data = {
-                "Product": str(i.id),
+                "product": str(i.id),
                 "order": Order.objects.first(),
-                "price": 10,
-                "quantity": str(stock),
+                "price": i.price,
+                "quantity": stock,
             }
             response = self.client.post(f"/order-item/", data)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
