@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from .models import Category, Product, Order
+from .models import Category, OrderItem, Product, Order
 from rest_framework_json_api import serializers
 from rest_framework import status
 from rest_framework.exceptions import APIException
@@ -11,13 +11,13 @@ class NotEnoughStockException(APIException):
     default_code = "invalid"
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "name"
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
@@ -27,7 +27,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class OrderSerializer(serializers.HyperlinkedModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = (
@@ -40,13 +40,17 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
+class OrderItemSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(), many=False
     )
+    
+    order = serializers.PrimaryKeyRelatedField(
+        queryset=Order.objects.all(), many=False
+    )
 
     class Meta:
-        model = Order
+        model = OrderItem
         fields = (
             "product",
             "order",

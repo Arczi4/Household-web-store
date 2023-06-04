@@ -46,7 +46,7 @@ class Product(
         ordering = ["id"]
 
     def __str__(self):
-        return self.title
+        return self
     
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     product_name = models.TextField(blank=False, null=True)
@@ -73,15 +73,21 @@ class Product(
             return False
         return True
 
-    def place_order(self, user, qty):
+    def place_order(self, order, price, qty):
         #used to place an order
+        
+        # Get order object
+        order = Order.objects.get(pk=order)
+        
         if self.check_stock(qty):
-            order = Order.objects.create(
-                product = self, 
-                quantity = qty, 
-                user= user)
+            order_item = OrderItem.objects.create(
+                product = self,
+                order = order,
+                price = price,
+                quantity = qty
+            )
             self.manage_stock(qty)
-            return order
+            return order_item
         else:
             return None
 
@@ -110,7 +116,7 @@ class Order(
     paid = models.BooleanField(blank=False, null=False, default=False)
 
     def __str__(self):
-        return f'{self.id}'
+        return self
 
 
 class OrderItem(
@@ -127,6 +133,6 @@ class OrderItem(
         ordering = ["id"]
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=100000, null=True, blank=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
