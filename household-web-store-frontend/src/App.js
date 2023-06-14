@@ -1,9 +1,10 @@
 import './App.css';
-import { LoginPage } from './Screens/LoginPage/LoginPage';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ProductsPage } from './Screens/ProductsPage/ProductsPage';
-import { ContactPage } from './Screens/ContactPage/ContactPage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import ProductsPage from './Pages/ProductsPage/ProductsPage';
+import ContactPage from './Pages/ContactPage/ContactPage';
 
 function App () {
   return (
