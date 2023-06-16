@@ -1,0 +1,16 @@
+.products-page {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+  
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(300px, 1fr));
+    gap: 50px;
+}
+
+.products-title {
+    text-align: center;
+    font-size: 40px;
+    color: #5e7fb1;
+}
