@@ -1,7 +1,7 @@
 from json import JSONDecodeError
 from django.http import JsonResponse
 from .serializers import ProductSerializer, OrderSerializer, OrderItemSerializer
-from .models import Product, Order, Category, OrderItem
+from .models import Product, Order, Category, OrderItem, User
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
@@ -46,6 +46,19 @@ class OrderViewSet(
         """
         user = self.request.user
         return Order.objects.filter(user=user)
+    
+    def create(self, request):
+        try:
+            request_data = JSONParser().parse(request)
+            serializer = OrderSerializer(data=request_data)
+            if serializer.is_valid(raise_exception=True):
+                return Response(OrderSerializer(request_data).data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except JSONDecodeError:
+            return JsonResponse(
+                {"result": "error", "message": "Json decoding error"}, status=400
+            )
 
 
 

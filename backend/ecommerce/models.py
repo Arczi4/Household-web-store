@@ -115,8 +115,6 @@ class Order(
     created_date = models.DateTimeField(default=datetime.datetime.now())
     paid = models.BooleanField(blank=False, null=False, default=False)
 
-    def __str__(self):
-        return self
 
 
 class OrderItem(
