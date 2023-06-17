@@ -7,14 +7,19 @@ import FilterSort from '../../Components/FilterSort/FilterSort';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('');
 
-  const categories = ['All', 'Cleaning', 'Garden', 'Bedroom', 'Living room', 'Kitchen'];
+  // const categories = ['All', 'Cleaning', 'Garden', 'Bedroom', 'Living room', 'Kitchen'];
 
   useEffect(() => {
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -22,7 +27,7 @@ const ProductsPage = () => {
       const response = await fetch('http://localhost:8000/product/', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d' // kuba1 token
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
         }
       });
 
@@ -36,6 +41,26 @@ const ProductsPage = () => {
       console.error(error);
     }
   };
+  
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/category/', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch categories from the API');
+      }
+
+      const data = await response.json();
+      setCategories(data.data);
+    } catch (error) {
+    }
+  };
+  
 
   const handleSelectCategory = (category) => {
     setActiveCategory(category);
@@ -74,14 +99,19 @@ const ProductsPage = () => {
 
 
   const sortedProducts = sortProducts(filteredProducts);
-
+  try{
+    console.log(categories.map(category=>[category.attributes.name]))
+  }
+  catch{
+    
+  }
   return (
     <div>
       <Header />
       <div className="products-page">
         <h1 className="products-title">Products</h1>
         <FilterSort
-          categories={categories}
+          categories={categories.map(category=>[category.attributes.name])}
           activeCategory={activeCategory}
           onSelectCategory={handleSelectCategory}
           onSearch={handleSearch}
@@ -89,7 +119,7 @@ const ProductsPage = () => {
         />
         <div className="products-grid">
           {sortedProducts.map((product) => (
-            <Catalog key={product.id} product={product} />
+            <Catalog key={product.id} product={product.attributes} />
           ))}
         </div>
       </div>
