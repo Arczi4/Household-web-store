@@ -1,23 +1,24 @@
 import './App.css';
-import { LoginPage } from './Screens/LoginPage/LoginPage';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ProductsPage } from './Screens/ProductsPage/ProductsPage';
-import { ContactPage } from './Screens/ContactPage/ContactPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import ProductsPage from './Pages/ProductsPage/ProductsPage';
+import ContactPage from './Pages/ContactPage/ContactPage';
+import NoPage from "./Pages/NoPage/NoPage";
 
-function App () {
+const App = () => {
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route exact path="/" component={ProductsPage} />
-          <Route path="/contact" component={ContactPage} />
-        </Switch>
-        <LoginPage />
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />}/>
+        <Route path="products" element={<ProductsPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 
 export default App;

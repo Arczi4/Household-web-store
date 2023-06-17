@@ -1,8 +1,82 @@
 .header {
-    position: absolute;
-    bottom: 1;
-    width: 100%;
-    height: 80px; /* Adjust as needed */
-    background-color: lightgray;
-    text-align: center;
-}
+    background-color: #e0f4f6;
+    padding: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline-style: solid;
+    outline-color: rgb(225, 225, 225);
+  }
+  
+  .logo-container {
+    flex: 0 0 auto;
+  }
+  
+  .logo {
+    font-weight: 900;
+    text-shadow: #333;
+    color: #5e7fb1;
+    font-size: 50px;
+    font-style: italic;
+    margin-right: 10px;
+  }
+  
+  .header-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .header-nav li {
+    margin-right: 10px;
+  }
+  
+  .header-nav a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header-nav a:hover {
+    background-color: #ddd;
+    border-radius: 4px;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon {
+    text-decoration: none;
+    color: #333;
+    margin-right: 70px;
+    font-size: 30px;
+  }
+  
+  .cart-icon:hover {
+    color: #5e7fb1;
+  }
+
+  .login-btn {
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #5e7fb1;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    transition: background-color 0.3s ease;
+    background-color: #2e65b7;
+  }
+  
