@@ -31,9 +31,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), many=False
-    )
     class Meta:
         model = Order
         fields = (
@@ -50,10 +47,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(), many=False
     )
-    
-    order = serializers.PrimaryKeyRelatedField(
-        queryset=Order.objects.all(), many=False
-    )
+
+    order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all(), many=False)
 
     class Meta:
         model = OrderItem

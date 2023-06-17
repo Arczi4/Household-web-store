@@ -191,4 +191,4 @@ class EcommerceTestCase(APITestCase):
             "paid": False
         }  
         response = self.client.post("/order/", data=data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

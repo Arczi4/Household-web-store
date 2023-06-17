@@ -52,7 +52,8 @@ class OrderViewSet(
             request_data = JSONParser().parse(request)
             serializer = OrderSerializer(data=request_data)
             if serializer.is_valid(raise_exception=True):
-                return Response(OrderSerializer(request_data).data)
+                serializer.save()
+                return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except JSONDecodeError:

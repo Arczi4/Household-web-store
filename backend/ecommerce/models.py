@@ -108,7 +108,7 @@ class Order(
         verbose_name_plural = 'Orders'
         ordering = ["id"]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.TextField(blank=False, null=True)
     adress = models.TextField(blank=False, null=True)
     postal_code = models.TextField(blank=False, null=True)
     city  = models.TextField(blank=False, null=True)
