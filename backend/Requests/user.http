@@ -1,3 +1,4 @@
+# User authorization - returns user's token
 POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
@@ -6,6 +7,3 @@ Content-Type: application/json
     "password": "jezusmaria123"
 }
 
-
-###
-@token=99a19600ea8efa17213030362485549538a6743a
