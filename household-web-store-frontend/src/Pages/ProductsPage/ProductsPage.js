@@ -13,6 +13,7 @@ const ProductsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('');
 
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -26,7 +27,7 @@ const ProductsPage = () => {
       const response = await fetch('http://localhost:8000/product/', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token 71a52fe8a247496ea7be30a30d5f1fd366ea7b2e' // kuba1 token
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
         }
       });
 
@@ -46,7 +47,7 @@ const ProductsPage = () => {
       const response = await fetch('http://localhost:8000/category/', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token 71a52fe8a247496ea7be30a30d5f1fd366ea7b2e' // kuba1 token
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
         }
       });
 

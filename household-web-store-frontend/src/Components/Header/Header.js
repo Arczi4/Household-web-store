@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
 const Header = () => {
+  const [productCount, setProductCount] = useState(0)
+  
+  useEffect(() => {
+    setProductCount(sessionStorage.getItem('product_count'))
+  }, []);
+
   return (
     <div className="header">
       <div className="logo-container">
@@ -23,6 +29,7 @@ const Header = () => {
       <div className="right-section">
         <Link to="/cart" className="cart-icon">
           <FontAwesomeIcon icon={faShoppingCart} />
+          {productCount}
         </Link>
         <Link to="/" className="login-btn">
           Log in

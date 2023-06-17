@@ -6,6 +6,7 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import ProductsPage from './Pages/ProductsPage/ProductsPage';
 import ProductDetailsPage from './Pages/ProductDetailsPage/ProductDetailsPage';
 import ContactPage from './Pages/ContactPage/ContactPage';
+import CartPage from './Pages/CartPage/CartPage';
 import NoPage from "./Pages/NoPage/NoPage";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="products" element={<ProductsPage />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="cart" element={<CartPage />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

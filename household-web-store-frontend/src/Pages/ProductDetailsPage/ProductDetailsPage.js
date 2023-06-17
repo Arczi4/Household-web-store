@@ -22,7 +22,7 @@ const ProductDetailsPage = () => {
             const response = await fetch(`http://localhost:8000/product/${productId}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Token 71a52fe8a247496ea7be30a30d5f1fd366ea7b2e'
+                    'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe'
                 }
             });
 
@@ -44,25 +44,35 @@ const ProductDetailsPage = () => {
         setQuantity(value);
     };
 
-    const handleAddToCart = () => {
-        // TODO: implement adding to cart functionality!
-        const message = `Added ${quantity} item(s) of product ${productId} to the cart.`;
-        window.alert(message);
-    };
-
+    
     if (isLoading) {
         return <div>Loading...</div>;
     }
-
+    
     if (error) {
         return <div>Error: {error}</div>;
     }
-
+    
     if (!product) {
         return <div>Product not found</div>;
     }
 
     const { product_name, description, stock, image, price, rating } = product.attributes;
+    
+    const handleAddToCart = () => {
+        // TODO: implement adding to cart functionality!
+        const message = `Added ${quantity} item(s) of product ${product_name} to the cart.`;
+        window.alert(message);
+        sessionStorage.setItem('product_count', Number(sessionStorage.getItem('product_count'))+1);
+        const existingObject = JSON.parse(sessionStorage.getItem('product')) || [];
+
+        // Merge the new object with the existing object
+        const updatedObject = [ ...existingObject, product ];
+        // Store the updated object in session storage
+        sessionStorage.setItem('product', JSON.stringify(updatedObject));
+        // sessionStorage.clear()
+        window.location.reload()
+    };
 
     return (
         <div>
