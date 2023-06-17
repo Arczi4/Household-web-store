@@ -14,3 +14,8 @@
     font-size: 40px;
     color: #5e7fb1;
 }
+
+.no-link-style {
+    text-decoration: none;
+    color: inherit;
+  }
