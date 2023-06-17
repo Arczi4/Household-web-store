@@ -46,7 +46,7 @@ class Product(
         ordering = ["id"]
 
     def __str__(self):
-        return self
+        return str(self.product_name)
     
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     product_name = models.TextField(blank=False, null=True)
