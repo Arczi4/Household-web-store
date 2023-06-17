@@ -1,4 +1,4 @@
 
 GET http://localhost:8000/product/
 Content-Type: application/json
-Authorization: Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d
+Authorization: Token 312f0749f5cec769c023b9153cec667c1b5664fe

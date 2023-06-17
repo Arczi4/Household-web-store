@@ -14,7 +14,9 @@ class NotEnoughStockException(APIException):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = "name"
+        fields = (
+            "name",
+            "title")
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -26,7 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "image",
             "description",
             "stock",
-            "price",
+            "price"
         )
 
 
