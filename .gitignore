@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Images
+*.jpg
+*.JPEG
+
 # Distribution / packaging
 .Python
 build/
