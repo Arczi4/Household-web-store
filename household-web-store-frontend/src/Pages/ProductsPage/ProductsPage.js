@@ -1,17 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProductsPage.css';
-import Header from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
-import exampleProducts from './exampleProducts';
-import Catalog from '../../Components/Catalog/Catalog.js';
+import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
+import Catalog from '../../Components/Catalog/Catalog';
 import FilterSort from '../../Components/FilterSort/FilterSort';
 
 const ProductsPage = () => {
+  const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('');
 
   const categories = ['All', 'Cleaning', 'Garden', 'Bedroom', 'Living room', 'Kitchen'];
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/product/', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d' // kuba1 token
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch products from the API');
+      }
+
+      const data = await response.json();
+      setProducts(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSelectCategory = (category) => {
     setActiveCategory(category);
@@ -42,13 +66,12 @@ const ProductsPage = () => {
     }
   };
 
-  const filteredProducts = exampleProducts
-    .filter((product) => {
-      const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
-      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
-    })
-    .slice(); // Create a copy to avoid mutating the original array
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = activeCategory === 'All' || product.relationships.category.data.id === activeCategory;
+    const matchesSearch = product.attributes.product_name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
 
   const sortedProducts = sortProducts(filteredProducts);
 
@@ -56,7 +79,7 @@ const ProductsPage = () => {
     <div>
       <Header />
       <div className="products-page">
-        <h1 className='products-title'>Products</h1>
+        <h1 className="products-title">Products</h1>
         <FilterSort
           categories={categories}
           activeCategory={activeCategory}

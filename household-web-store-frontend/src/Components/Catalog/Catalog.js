@@ -1,22 +1,16 @@
 import React from 'react';
-import img from '../../Assets/img.png';
 import './Catalog.css';
 
 const Catalog = ({ product }) => {
-  const { name, price, rating } = product;
+  const { product_name, price } = product.attributes;
 
   return (
     <div className="catalog-container">
-        <img src={img} className="catalog-image" />
-        <div className="catalog-info">
-          <h3 className="catalog-title">{name}</h3>
-          <p className="catalog-title">{price} zł</p>
-        </div>
-        <p className="catalog-rating">
-            <span className="catalog-rating-icon">&#9733;</span>
-            {rating}
-        </p>
-      
+      <img src={product_name.image} className="catalog-image" alt={product_name} />
+      <div className="catalog-info">
+        <h3 className="catalog-title">{product_name}</h3>
+        <p className="catalog-price">{price} zł</p>
+      </div>
     </div>
   );
 };

@@ -43,12 +43,14 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', #Used to enable token authentication
     'core',
     'ecommerce', #New app
+    'corsheaders', #Enable requests from other apps
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #Enable requests from other apps
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -103,6 +105,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+ # Enable requests from other apps
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # React app URL
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
 ]
 
 
