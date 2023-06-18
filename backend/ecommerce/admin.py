@@ -20,3 +20,4 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(models.OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ("id", "product")
+    list_filter = ("order",)
