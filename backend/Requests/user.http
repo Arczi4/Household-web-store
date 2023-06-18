@@ -3,7 +3,19 @@ POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
 {
-    "username": "artur",
+    "username": "artur12",
     "password": "jezusmaria123"
 }
+
+
+# Create new user
+###
+POST http://localhost:8000/api/user/
+Content-Type: application/json
+
+{
+    "username": "artur123",
+    "password": "jezusmaria123"
+}
+
 

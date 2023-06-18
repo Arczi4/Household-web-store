@@ -1,10 +1,13 @@
 from json import JSONDecodeError
 from django.http import JsonResponse
-from .serializers import ContactSerializer
+from .serializers import ContactSerializer, UserSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework import views, status
 from rest_framework.response import Response
-
+from core.serializers import UserSerializer
+from django.contrib.auth.models import User
+from rest_framework.mixins import ListModelMixin, UpdateModelMixin, RetrieveModelMixin
+from rest_framework import viewsets, status
 
 
 class ContactAPIView(views.APIView):
@@ -28,6 +31,23 @@ class ContactAPIView(views.APIView):
         try:
             data = JSONParser().parse(request)
             serializer = ContactSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except JSONDecodeError:
+            return JsonResponse({"result": "error","message": "Json decoding error"}, status= 400)
+
+
+class CreateUserView(ListModelMixin, RetrieveModelMixin, UpdateModelMixin, viewsets.GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def create(self, request):
+        try:
+            data = JSONParser().parse(request)
+            serializer = UserSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)

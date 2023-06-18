@@ -1,7 +1,7 @@
 from json import JSONDecodeError
 from django.http import JsonResponse
 from .serializers import ProductSerializer, OrderSerializer, OrderItemSerializer
-from .models import Product, Order, Category, OrderItem, User
+from .models import Product, Order, Category, OrderItem
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
@@ -46,7 +46,7 @@ class OrderViewSet(
         """
         user = self.request.user
         return Order.objects.filter(user=user)
-    
+
     def create(self, request):
         try:
             request_data = JSONParser().parse(request)
@@ -62,7 +62,6 @@ class OrderViewSet(
             )
 
 
-
 class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
     """
     A simple ViewSet for listing or retrieving ordered items.
@@ -71,14 +70,16 @@ class OrderItemViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewS
     permission_classes = (IsAuthenticated,)
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
-    
+
     def create(self, request):
         try:
             data = JSONParser().parse(request)
             serializer = OrderItemSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 product = Product.objects.get(pk=data["product"])
-                order_item = product.place_order(data["order"], data["price"], data["quantity"])
+                order_item = product.place_order(
+                    data["order"], data["price"], data["quantity"]
+                )
                 return Response(OrderItemSerializer(order_item).data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
