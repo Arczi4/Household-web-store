@@ -76,7 +76,9 @@ const CartPage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setOrder(data.data.id)
+        // setOrder(data.data.id)
+        console.log(data.data.id)
+        loadOrderItem(data.data.id)
         alert('Order placed successfuly!');
       })
       .catch((error) => {
@@ -84,8 +86,9 @@ const CartPage = () => {
           alert('Failed to place order. Please try again.');
       });
 
+    const loadOrderItem = (order_id) => {
+      console.log(order_id)
       for (var i in array[0]){
-        // console.log(array[0][i].id)
       fetch('http://localhost:8000/order-item/', {
         method: 'POST',
         headers: {
@@ -97,20 +100,19 @@ const CartPage = () => {
             'product': String(array[0][i].id),
             'quantity': String(array[0][i].quantity),
             'price': String(array[0][i].attributes.price),
-            'order': order
+            'order': String(order_id)
           }
-        )
+        ) 
       })
         .then((response) => response.json())
         .then((data) => {
-          setOrder(data.data.id)
-          alert('Order placed successfuly!');
         })
         .catch((error) => {
             console.error(error);
             alert('Failed to place order. Please try again.');
         });
       }
+    }
 
     }
     
