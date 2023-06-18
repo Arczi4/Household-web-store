@@ -21,14 +21,15 @@
   
   .catalog-title {
     color: #5e7fb1;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
   }
 
   .catalog-rating {
-    font-size: 20px;
+    font-size: 15px;
     margin-top: -35px;
     margin-left: 10px;
+    padding-bottom: 15px;
   }
   
   .catalog-rating-icon {

@@ -3,8 +3,8 @@ POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
 {
-    "username": "artur12",
-    "password": "jezusmaria123"
+    "username": "damian",
+    "password": "fajnehaslo1"
 }
 
 

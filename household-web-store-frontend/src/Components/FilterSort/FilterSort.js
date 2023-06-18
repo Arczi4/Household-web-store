@@ -1,14 +1,24 @@
 import React from 'react';
 import './FilterSort.css';
 
-const FilterSort = ({ categories, activeCategory, onSelectCategory, onSearch, onSortChange }) => {
+const FilterSort = ({ categories, activeCategory, onSelectCategory, onSearch, onSortChange, onResetCategory }) => {
   const handleSortChange = (e) => {
     onSortChange(e.target.value);
+  };
+
+  const handleResetCategory = () => {
+    onResetCategory();
   };
 
   return (
     <div className="filter-sort-container">
       <div className="category-buttons">
+        <button
+          className={activeCategory === 'All' ? 'active' : ''}
+          onClick={handleResetCategory}
+        >
+          All Categories
+        </button>
         {categories.map((category) => (
           <button
             key={category}
@@ -28,8 +38,9 @@ const FilterSort = ({ categories, activeCategory, onSelectCategory, onSearch, on
         />
       </div>
       <div className="sort-dropdown-container">
+        Sort By:
         <select className="sort-dropdown" onChange={handleSortChange}>
-          <option value="">Sort By</option>
+          {/* <option value="">Sort By</option> */}
           <option value="name">Name (A-Z)</option>
           <option value="priceAsc">Price (Low to High)</option>
           <option value="priceDesc">Price (High to Low)</option>

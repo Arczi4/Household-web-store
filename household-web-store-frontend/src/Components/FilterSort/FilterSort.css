@@ -49,6 +49,7 @@
   }
   
   .sort-dropdown {
+    margin-left: 10px;
     width: 200px;
     height: 40px;
     padding: 5px;

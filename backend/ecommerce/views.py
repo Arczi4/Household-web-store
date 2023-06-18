@@ -1,6 +1,6 @@
 from json import JSONDecodeError
 from django.http import JsonResponse
-from .serializers import ProductSerializer, OrderSerializer, OrderItemSerializer
+from .serializers import ProductSerializer, OrderSerializer, OrderItemSerializer, CategorySerializer
 from .models import Product, Order, Category, OrderItem
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
@@ -16,7 +16,7 @@ class CategoryViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewSe
 
     permission_classes = (IsAuthenticated,)
     queryset = Category.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = CategorySerializer
 
 
 class ProductViewSet(ListModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):

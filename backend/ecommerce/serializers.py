@@ -11,24 +11,28 @@ class NotEnoughStockException(APIException):
     default_code = "invalid"
 
 
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = "name"
-
+        fields = (
+            "id",
+            "name",
+            "title"
+            )
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-            "category",
             "product_name",
             "image",
             "description",
             "stock",
             "price",
+            'rating',
+            'category'
         )
-
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
