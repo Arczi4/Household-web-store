@@ -89,7 +89,9 @@ class Product(
             return order_item
         else:
             return None
-
+    
+    def __str__(self) -> str:
+        return str(self.product_name)
 
 
 
@@ -114,7 +116,8 @@ class Order(
     created_date = models.DateTimeField(default=datetime.datetime.now())
     paid = models.BooleanField(blank=False, null=False, default=False)
 
-
+    def __str__(self) -> str:
+        return f"{self.user}, {self.id} "
 
 class OrderItem(
     TimeStampedModel,
