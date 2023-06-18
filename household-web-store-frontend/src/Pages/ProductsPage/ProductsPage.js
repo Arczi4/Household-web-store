@@ -27,7 +27,7 @@ const ProductsPage = () => {
       const response = await fetch('http://localhost:8000/product/', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d' // kuba1 token
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
         }
       });
 
@@ -47,7 +47,7 @@ const ProductsPage = () => {
       const response = await fetch('http://localhost:8000/category/', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d' // kuba1 token
+          'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe' // kuba1 token
         }
       });
 

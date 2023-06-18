@@ -22,7 +22,7 @@ const ProductDetailsPage = () => {
             const response = await fetch(`http://localhost:8000/product/${productId}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Token 6c98bd3dbd3f4aeaf6cd957ed25625a70ce7462d'
+                    'Authorization': 'Token 312f0749f5cec769c023b9153cec667c1b5664fe'
                 }
             });
 
@@ -65,15 +65,15 @@ const ProductDetailsPage = () => {
         window.alert(message);
         sessionStorage.setItem('product_count', Number(sessionStorage.getItem('product_count'))+1);
         const existingObject = JSON.parse(sessionStorage.getItem('product')) || [];
-
         // Merge the new object with the existing object
+        product['quantity'] = quantity
         const updatedObject = [ ...existingObject, product ];
         // Store the updated object in session storage
         sessionStorage.setItem('product', JSON.stringify(updatedObject));
-        // sessionStorage.clear()
         window.location.reload()
     };
-
+    // sessionStorage.clear()
+    
     return (
         <div>
             <Header />

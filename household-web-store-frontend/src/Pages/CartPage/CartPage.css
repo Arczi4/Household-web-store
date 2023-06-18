@@ -21,6 +21,17 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #5e7fb1;
   }
+
+  .product button {
+    margin-top: 5px;
+    border: none;
+    width: 30px;
+  }
+
+  .product button:hover{
+    color: red;
+    cursor: pointer
+  }
   
   .product img {
     width: 150px;
