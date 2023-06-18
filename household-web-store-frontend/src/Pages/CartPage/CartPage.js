@@ -6,10 +6,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const CartPage = () => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}`;
+
   const products = sessionStorage.getItem('product');
   const array = JSON.parse("[" + products + "]");
 
   const [cartItems, setCartItems] = useState(array[0]);
+  const [adress, setAdress] = useState('')
+  const [city, setCity] = useState('')
+  const [postalCode, setPostalCode] = useState('')
+  const [order, setOrder] = useState('')
 
   const handleRemoveItem = (id) => {
     const updatedItems = cartItems.filter(product => product.id !== id);
@@ -46,6 +57,63 @@ const CartPage = () => {
     sessionStorage.setItem('product', JSON.stringify(updatedItems));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newOrder = {
+        'user': sessionStorage.getItem('user'),
+        'adress': adress,
+        'postal_code': postalCode,
+        'city': city,
+        'created_date': formattedDate
+    }
+    fetch('http://localhost:8000/order/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${sessionStorage.getItem('token')}`
+      },
+      body: JSON.stringify(newOrder)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setOrder(data.data.id)
+        alert('Order placed successfuly!');
+      })
+      .catch((error) => {
+          console.error(error);
+          alert('Failed to place order. Please try again.');
+      });
+
+      for (var i in array[0]){
+        // console.log(array[0][i].id)
+      fetch('http://localhost:8000/order-item/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${sessionStorage.getItem('token')}`
+        },
+        body: JSON.stringify(
+          {
+            'product': String(array[0][i].id),
+            'quantity': String(array[0][i].quantity),
+            'price': String(array[0][i].attributes.price),
+            'order': order
+          }
+        )
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setOrder(data.data.id)
+          alert('Order placed successfuly!');
+        })
+        .catch((error) => {
+            console.error(error);
+            alert('Failed to place order. Please try again.');
+        });
+      }
+
+    }
+    
   const totalCost = cartItems.reduce((sum, item) => sum + (item.quantity * item.attributes.price), 0) + (cartItems.length > 0 ? 15 : 0);
 
   return (
@@ -84,40 +152,29 @@ const CartPage = () => {
               ))}
             </tbody>
           </table><div className="shipping-cost">Shipping: 15 zł</div><div className="total-cost">Total:&nbsp;&nbsp;&nbsp;{totalCost} zł</div></><div className="order-form">
-              <div>
+          <form onSubmit={handleSubmit}>
                 <input
                   type="text"
-                  placeholder="First Name" 
+                  placeholder="Adress"
+                  value={adress} 
+                  onChange={(event) => setAdress(event.target.value)}
                   required />
-              </div>
-              <div>
                 <input
                   type="text"
-                  placeholder="Last Name"
+                  placeholder="Postal Code"
+                  value={postalCode} 
+                  onChange={(event) => setPostalCode(event.target.value)}
                   required />
-              </div>
-              <div>
                 <input
                   type="tel" 
-                  placeholder="Phone Number"
-                  pattern="[0-9]{9}"
-                  required />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Street, house no."
-                  required />
-              </div>
-              <div>
-                <input 
-                  type="text"
                   placeholder="City"
+                  value={city} 
+                  onChange={(event) => setCity(event.target.value)}
                   required />
-              </div>
-              <button className="place-order-button">
+              <button type="submit" className="place-order-button">
                 Place Order
               </button>
+            </form>
             </div></>
       )}
 

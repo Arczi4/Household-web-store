@@ -25,6 +25,7 @@ const LoginPage = () => {
       .then((data) => {
         if (data.token){
           sessionStorage.setItem('token', data.token)
+          sessionStorage.setItem('user', login)
           alert('Login successful!');
           navigate('products');
         }

@@ -73,7 +73,6 @@ const ProductDetailsPage = () => {
         window.location.reload()
     };
     // sessionStorage.clear()
-    
     return (
         <div>
             <Header />
