@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
 const Header = () => {
-  const [productCount, setProductCount] = useState(0)
-  
+  const navigate = useNavigate();
+  const [productCount, setProductCount] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   useEffect(() => {
-    setProductCount(sessionStorage.getItem('product_count'))
+    setProductCount(sessionStorage.getItem("product_count"));
+    setLoggedIn(sessionStorage.getItem("token") !== null);
   }, []);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    setLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <div className="header">
@@ -27,20 +36,31 @@ const Header = () => {
         </ul>
       </nav>
       <div className="right-section">
-      {sessionStorage.getItem('product_count') ? <Link to="/cart" className="cart-icon">
-          <FontAwesomeIcon icon={faShoppingCart} />
-          {productCount}
-        </Link>
-        : <Link className="cart-icon">
-        <FontAwesomeIcon icon={faShoppingCart} />
-        {productCount}
-      </Link>}
-        <Link to="/" className="login-btn">
-          Log in
-        </Link>
-        <Link to="/register" className="login-btn">
-          Register
-        </Link>
+        {sessionStorage.getItem("product_count") ? (
+          <Link to="/cart" className="cart-icon">
+            <FontAwesomeIcon icon={faShoppingCart} />
+            {productCount}
+          </Link>
+        ) : (
+          <Link className="cart-icon">
+            <FontAwesomeIcon icon={faShoppingCart} />
+            {productCount}
+          </Link>
+        )}
+        {loggedIn ? (
+          <button className="login-btn" onClick={handleLogout}>
+            Log out
+          </button>
+        ) : (
+          <>
+            <Link to="/" className="login-btn">
+              Log in
+            </Link>
+            <Link to="/register" className="login-btn">
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
