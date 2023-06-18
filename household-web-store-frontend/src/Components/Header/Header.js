@@ -27,10 +27,14 @@ const Header = () => {
         </ul>
       </nav>
       <div className="right-section">
-        <Link to="/cart" className="cart-icon">
+      {sessionStorage.getItem('product_count') ? <Link to="/cart" className="cart-icon">
           <FontAwesomeIcon icon={faShoppingCart} />
           {productCount}
         </Link>
+        : <Link className="cart-icon">
+        <FontAwesomeIcon icon={faShoppingCart} />
+        {productCount}
+      </Link>}
         <Link to="/" className="login-btn">
           Log in
         </Link>

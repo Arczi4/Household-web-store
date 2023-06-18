@@ -15,9 +15,8 @@ const CartPage = () => {
     sessionStorage.setItem('product_count', Number(sessionStorage.getItem('product_count'))-1);
     window.location.reload()
   }
-  // console.log(products)
+  
   const totalCost = array[0].reduce((sum, item) => sum + (item.quantity*item.attributes.price), 0);
-  console.log(totalCost); // Output: 24
 
   return (
     <div>
