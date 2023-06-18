@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import "./RegisterPage.css"
 
 const RegisterPage = () => {
     const navigate = useNavigate()
@@ -36,28 +37,29 @@ const RegisterPage = () => {
     return (
         <div>
             <Header />
-            <h1> RegisterPage</h1>
+            <div className="register-container">
+              <div className="reg-form-container">
+            <h1>Register</h1>
             <form onSubmit={handleSubmit}>
-            <label>
-                Login:
                 <input
+                placeholder="Username"
                 type="text"
                 value={login}
                 onChange={(event) => setLogin(event.target.value)}
+                className="form-input"
                 />
-            </label>
-            <br />
-            <label>
-                Password:
                 <input
+                placeholder="Password"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                className="form-input"
                 />
-            </label>
-            <br />
-            <button type="submit">Submit</button>
+            <button type="submit" className="submit-button">Submit</button>
             </form>
+            <div>Need help? <Link to='/contact'>Contact us</Link>!</div>
+            </div>
+            </div>
             <Footer />
         </div>
         );

@@ -1,13 +1,15 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import "./LoginPage.css";
 
 const LoginPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,52 +26,50 @@ const LoginPage = () => {
         if (data.token){
           sessionStorage.setItem('token', data.token)
           alert('Login successful!');
-          navigate('products')
-          
+          navigate('products');
         }
         else {
-          alert('Login failed. Please check your credentials.');
+          setErrorMessage('Login failed. Please check your credentials.');
         }
       })
       .catch((error) => {
         console.error(error);
-        alert('Login failed. Please try again.');
+        setErrorMessage('An error occured. Please try again.');
       });
     
     setLogin('');
     setPassword('');
   };
 
-
-
   return (
     <div>
       <Header />
-      <h1> LoginPage</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Login:
+      <div className="login-container">
+        <div className="form-container">
+        <h1>Log in</h1>
+        <div>Don't have an account? <Link to='/register'>Register here</Link>!</div>
+        <form onSubmit={handleSubmit}>
           <input
+            placeholder="Username"
             type="text"
             value={login}
             onChange={(event) => setLogin(event.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
+            className="form-input" />
           <input
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+            className="form-input" />
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
+          <button type="submit" className="submit-button">Submit</button>
+        </form>
+        <div>Need help? <Link to='/contact'>Contact us</Link>!</div>
+        </div>
+      </div>
       <Footer />
     </div>
   );
 };
 
-export default LoginPage
+export default LoginPage;
