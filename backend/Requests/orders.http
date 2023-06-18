@@ -1,0 +1,5 @@
+
+# View all orders
+GET http://localhost:8000/order/
+Content-Type: application/json
+Authorization: Token 99a19600ea8efa17213030362485549538a6743a

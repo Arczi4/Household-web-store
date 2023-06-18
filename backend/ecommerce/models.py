@@ -107,15 +107,13 @@ class Order(
         verbose_name_plural = 'Orders'
         ordering = ["id"]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.TextField(blank=False, null=True)
     adress = models.TextField(blank=False, null=True)
     postal_code = models.TextField(blank=False, null=True)
     city  = models.TextField(blank=False, null=True)
     created_date = models.DateTimeField(default=datetime.datetime.now())
     paid = models.BooleanField(blank=False, null=False, default=False)
 
-    def __str__(self):
-        return self
 
 
 class OrderItem(

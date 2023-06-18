@@ -1,3 +1,4 @@
+# User authorization - returns user's token
 POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
@@ -7,5 +8,14 @@ Content-Type: application/json
 }
 
 
+# Create new user
 ###
-@token=99a19600ea8efa17213030362485549538a6743a
+POST http://localhost:8000/api/user/
+Content-Type: application/json
+
+{
+    "username": "artur123",
+    "password": "jezusmaria123"
+}
+
+

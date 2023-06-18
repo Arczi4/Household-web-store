@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from .models import Category, OrderItem, Product, Order
+from .models import Category, OrderItem, Product, Order, User
 from rest_framework_json_api import serializers
 from rest_framework import status
 from rest_framework.exceptions import APIException
@@ -51,10 +51,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
     product = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(), many=False
     )
-    
-    order = serializers.PrimaryKeyRelatedField(
-        queryset=Order.objects.all(), many=False
-    )
+
+    order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all(), many=False)
 
     class Meta:
         model = OrderItem

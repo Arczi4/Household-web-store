@@ -180,3 +180,15 @@ class EcommerceTestCase(APITestCase):
         for o in orders:
             response = self.client.get(f"/order/{o.id}/")
             self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_creating_one_order(self):
+        data = {
+            "user": str(User.objects.first()),
+            "adress": "test adress",
+            "postal_code": "21-212",
+            "city": "Wroclaw",
+            "created_date": timezone.now(),
+            "paid": False
+        }  
+        response = self.client.post("/order/", data=data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

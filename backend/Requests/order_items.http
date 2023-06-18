@@ -1,0 +1,5 @@
+GET http://localhost:8000/order-item/
+Content-Type: application/json
+Authorization: Token 7f5d1a40c5873ecac39de486387629f1546f9776
+
+
