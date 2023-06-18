@@ -102,3 +102,39 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #5e7fb1;
 }
+
+.order-form {
+  margin-top: 30px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-form-input {
+  width: 95%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.place-order-button {
+  margin-top: 20px;
+    width: 75%;
+    padding: 8px;
+    background-color: #5e7fb1;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 100px;
+  }
+  
+  .place-order-button:hover {
+    background-color: #1976d2;
+  }
+  

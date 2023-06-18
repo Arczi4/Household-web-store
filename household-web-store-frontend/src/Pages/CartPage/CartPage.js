@@ -186,17 +186,18 @@ const CartPage = () => {
             <div className="total-cost">
               Total:&nbsp;&nbsp;&nbsp;{totalCost} zł
             </div>
-          </>
-          <div className="order-form">
+            <div className="order-form">
             <form onSubmit={handleSubmit}>
               <input
+                className="order-form-input"
                 type="text"
-                placeholder="Adress"
+                placeholder="Street, house no."
                 value={adress}
                 onChange={(event) => setAdress(event.target.value)}
                 required
               />
               <input
+                className="order-form-input"
                 type="text"
                 placeholder="Postal Code"
                 value={postalCode}
@@ -204,6 +205,7 @@ const CartPage = () => {
                 required
               />
               <input
+                className="order-form-input"
                 type="tel"
                 placeholder="City"
                 value={city}
@@ -215,6 +217,8 @@ const CartPage = () => {
               </button>
             </form>
           </div>
+          </>
+          
         </>
       )}
 
