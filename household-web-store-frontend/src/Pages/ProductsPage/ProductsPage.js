@@ -94,7 +94,7 @@ const ProductsPage = () => {
         return products;
     }
   };
-
+  
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       activeCategory === 'All' ||

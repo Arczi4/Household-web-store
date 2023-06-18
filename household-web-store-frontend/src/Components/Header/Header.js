@@ -36,7 +36,7 @@ const Header = () => {
         </ul>
       </nav>
       <div className="right-section">
-        {sessionStorage.getItem("product_count") ? (
+        {sessionStorage.getItem("product") ? (
           <Link to="/cart" className="cart-icon">
             <FontAwesomeIcon icon={faShoppingCart} />
             {productCount}

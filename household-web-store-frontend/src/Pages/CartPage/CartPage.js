@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import "./CartPage.css";
@@ -7,6 +8,7 @@ import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const CartPage = () => {
   const currentDate = new Date();
+  const navigate = useNavigate();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const day = String(currentDate.getDate()).padStart(2, "0");
@@ -117,7 +119,9 @@ const CartPage = () => {
   setAdress('')
   setCity('')
   setPostalCode('')
-  sessionStorage.setItem("product", 0)
+  sessionStorage.removeItem("product")
+  sessionStorage.setItem("product_count", 0)
+  navigate('/products')
   };
 
   const totalCost =
