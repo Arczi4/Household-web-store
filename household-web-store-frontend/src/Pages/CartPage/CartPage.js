@@ -22,7 +22,6 @@ const CartPage = () => {
   const [adress, setAdress] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [order, setOrder] = useState("");
 
   const handleRemoveItem = (id) => {
     const updatedItems = cartItems.filter((product) => product.id !== id);
