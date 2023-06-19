@@ -86,15 +86,6 @@
   margin-bottom: 60px;
 }
 
-.shipping-cost {
-  text-align: right;
-  margin-top: 20px;
-  font-size: 25px;
-  padding-right: 40%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5e7fb1;
-}
-
 .empty-cart-message {
   text-align: center;
   justify-content: center;

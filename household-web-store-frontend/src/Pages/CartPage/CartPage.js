@@ -127,7 +127,7 @@ const CartPage = () => {
     cartItems.reduce(
       (sum, item) => sum + item.quantity * item.attributes.price,
       0
-    ) + (cartItems.length > 0 ? 15 : 0);
+    );
 
   return (
     <div>
@@ -181,7 +181,6 @@ const CartPage = () => {
                 ))}
               </tbody>
             </table>
-            <div className="shipping-cost">Shipping: 15 zł</div>
             <div className="total-cost">
               Total:&nbsp;&nbsp;&nbsp;{totalCost} zł
             </div>
